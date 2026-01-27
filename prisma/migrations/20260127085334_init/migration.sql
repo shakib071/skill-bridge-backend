@@ -1,18 +1,5 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Post` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "Post" DROP CONSTRAINT "Post_authorId_fkey";
-
--- DropTable
-DROP TABLE "Post";
-
--- DropTable
-DROP TABLE "User";
+-- CreateEnum
+CREATE TYPE "role" AS ENUM ('STUDENT', 'TUTOR', 'ADMIN');
 
 -- CreateTable
 CREATE TABLE "user" (
@@ -23,6 +10,11 @@ CREATE TABLE "user" (
     "image" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "role" "role" NOT NULL DEFAULT 'STUDENT',
+    "profile_image" TEXT,
+    "isActive" BOOLEAN DEFAULT true,
+    "phone" TEXT,
+    "status" TEXT DEFAULT 'ACTIVE',
 
     CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );

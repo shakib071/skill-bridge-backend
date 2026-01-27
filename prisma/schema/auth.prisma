@@ -1,16 +1,13 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+enum Role {
+  STUDENT
+  TUTOR
+  ADMIN
 }
 
-datasource db {
-  provider = "postgresql"
+enum UserStatus {
+  ACTIVE
+  BANNED
+  SUSPENDED 
 }
 
 model User {
@@ -24,8 +21,15 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
+  role          Role   @default(STUDENT)
+  profile_image String?
+  isActive      Boolean? @default(true)
+  phone         String?
+  status        UserStatus @default(ACTIVE)
+
   @@unique([email])
   @@map("user")
+  @@index([email])
 }
 
 model Session {
