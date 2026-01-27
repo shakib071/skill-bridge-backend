@@ -16,7 +16,7 @@ export const auth = betterAuth({
                 type:"string",
                 defaultValue: "STUDENT",
                 required:true,
-                enumValues: ["STUDENT", "TUTOR", "ADMIN"]
+                // enumValues: ["STUDENT", "TUTOR", "ADMIN"]
                 
             },
             profile_image:{
@@ -36,7 +36,7 @@ export const auth = betterAuth({
                 type:"string",
                 defaultValue:"ACTIVE",
                 required:true,
-                enumValues: ["ACTIVE", "BANNED", "SUSPENED"]
+                // enumValues: ["ACTIVE", "BANNED", "SUSPENED"]
                 
             }
 

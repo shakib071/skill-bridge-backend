@@ -27,9 +27,12 @@ model User {
   phone         String?
   status        UserStatus @default(ACTIVE)
 
+  tutorProfile TutorProfile?
+
   @@unique([email])
   @@map("user")
   @@index([email])
+  @@index([role])
 }
 
 model Session {
@@ -64,6 +67,8 @@ model Account {
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 
+  
+
   @@index([userId])
   @@map("account")
 }
@@ -79,3 +84,5 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+
+

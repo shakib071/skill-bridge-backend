@@ -1,0 +1,20 @@
+
+enum Status {
+    CONFIRMED
+    COMPLETED
+    CANCELLED
+}
+
+model Bookings {
+    id String @id @default(uuid())
+    studentId String
+    tutorId String
+    booking_date DateTime @default(now())
+    start_time DateTime
+    end_time DateTime
+    duration Int @default(0)
+    total_price Decimal @default(0)
+    status Status @default(CONFIRMED)
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
