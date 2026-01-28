@@ -8,7 +8,9 @@ enum Status {
 model Bookings {
     id String @id @default(uuid())
     studentId String
+    student User @relation(fields: [studentId],references: [id])
     tutorId String
+    tutor TutorProfile @relation(fields: [tutorId],references: [id],onDelete: Cascade)
     booking_date DateTime @default(now())
     start_time DateTime
     end_time DateTime
@@ -17,4 +19,7 @@ model Bookings {
     status Status @default(CONFIRMED)
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
+
+    review Reviews?
+    
 }

@@ -11,13 +11,14 @@ model TutorProfile {
     subjects String[] @default([])
     total_session_completed Int @default(0)
     average_rating Decimal @default(0)
-    language String[] @default([])
+    languages String[] @default([])
     isFeatured Boolean @default(false)
     experienceYears Int @default(0)
     education String? @db.VarChar(100)
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
     availability Availability[]
+    bookings Bookings[]
 
     @@index([userId])
     @@index([categoryId])
@@ -41,7 +42,7 @@ model Availability {
     day Days
     startTime DateTime
     endTime DateTime
-    isBooked Boolean
+    isBooked Boolean @default(false)
     created_at DateTime @default(now())
 
     @@index([tutorId])
