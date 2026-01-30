@@ -25,35 +25,5 @@ model TutorProfile {
 }
 
 
-enum Days {
-    MONDAY
-    TUESDAY
-    WEDNESDAY
-    THURSDAY
-    FRIDAY
-    SATURDAY
-    SUNDAY
-}
-
-model Availability {
-    id String @id @default(uuid())
-    tutorId String
-    tutor TutorProfile @relation(fields: [tutorId],references: [id],onDelete: Cascade)
-    day Days
-    startTime DateTime
-    endTime DateTime
-    isBooked Boolean @default(false)
-    created_at DateTime @default(now())
-
-    @@index([tutorId])
-}
 
 
-model  Category {
-    id String @id @default(uuid())
-    name String @unique @db.VarChar(100)
-    decription String? @db.Text
-    created_at DateTime @default(now())
-    tutors TutorProfile[]
-    @@index([name])
-}
