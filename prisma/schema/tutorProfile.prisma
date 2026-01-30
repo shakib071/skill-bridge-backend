@@ -10,7 +10,6 @@ model TutorProfile {
     hourly_rate Decimal @default(0)
     subjects String[] @default([])
     total_session_completed Int @default(0)
-    average_rating Decimal @default(0)
     languages String[] @default([])
     isFeatured Boolean @default(false)
     experienceYears Int @default(0)

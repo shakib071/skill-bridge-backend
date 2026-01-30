@@ -24,7 +24,7 @@ const getCategory = async (req:Request,res:Response,next:NextFunction) => {
     try{
         
         const query = Object.fromEntries(Object.entries(req.query));
-        console.log(query);
+        // console.log(query);
         const result = await CategoryService.getCategory(query);
 
         res.status(200).json({

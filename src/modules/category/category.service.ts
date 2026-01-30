@@ -1,5 +1,6 @@
 import { string } from "better-auth"
 import { prisma } from "../../lib/prisma";
+import { Payload } from "@prisma/client/runtime/client";
 
 const createCategory = async(payload:{
     name: string;
@@ -21,7 +22,7 @@ const createCategory = async(payload:{
 
 
 
-const getCategory = async(query:any) => {
+const getCategory = async(query:Record<string,any>) => {
     const allowedFields = ["id", "name", "description", "created_at"];
     const filters: Record<string, any> = {};
     Object.entries(query)
@@ -31,7 +32,7 @@ const getCategory = async(query:any) => {
         filters[key] = { equals: value, mode: "insensitive" }; 
       }
     });
-    console.log(filters);
+    // console.log(filters);
 
     const result = await prisma.category.findMany({where:filters});
     return result;
