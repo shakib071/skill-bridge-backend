@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Prisma } from "../../generated/prisma/client";
+import { success } from "better-auth";
 
 function errorHandler(err:any, req:Request,res:Response,next:NextFunction){
     let statusCode = err.statusCode || 500;
@@ -42,6 +43,7 @@ function errorHandler(err:any, req:Request,res:Response,next:NextFunction){
     }
 
     res.status(statusCode).json({
+        success:false,
         message: errorMessage,
         error:errorDatails
     })
