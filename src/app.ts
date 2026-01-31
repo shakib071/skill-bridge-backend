@@ -6,6 +6,7 @@ import { notFound } from "./middleware/notFound";
 import errorHandler from "./middleware/globalErrorHandler";
 import {  categoryRouter } from "./modules/category/category.router";
 import { tutorRouter } from "./modules/tutor/tutor.router";
+import { availabilityRouter } from "./modules/availability/availability.router";
 
 const app: Application = express();
 
@@ -20,6 +21,7 @@ app.all('/api/auth/*splat', toNodeHandler(auth));
 
 app.use("/api/category",categoryRouter);
 app.use("/api/tutor",tutorRouter);
+app.use("/api/availability",availabilityRouter);
 
 app.get("/", (req, res) => {
     res.send("Hello, World from SkillBridge");

@@ -33,12 +33,12 @@ const auth = (...roles:Role[])=> {
                 });
             }
 
-            if(!session.user?.emailVerified){
-                return res.status(403).json({
-                    success:false,
-                    message: "Please verify your email to access this resource!"
-                });
-            }
+            // if(!session.user?.emailVerified){
+            //     return res.status(403).json({
+            //         success:false,
+            //         message: "Please verify your email to access this resource!"
+            //     });
+            // }
 
 
             req.user = {
