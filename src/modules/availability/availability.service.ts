@@ -38,7 +38,66 @@ const createAvailability = async(payload: Record<string,any>,tutorUserId:string)
     return slot;
 }
 
+const getAvailability = async(tutorUserId:string)=>{
+    const tutor = await prisma.tutorProfile.findUnique({
+        where:{
+            userId:tutorUserId,
+        }
+    });
+
+    if(!tutor?.id){
+        throw new Error("Tutor Not Found");
+    }
+
+    const tutorId = tutor?.id;
+    const result = await prisma.availability.findMany({
+        where:{
+            tutorId,
+        }
+    });
+    
+    return result;
+
+}
+
+
+const deleteAvailability = async(id:string,tutorUserId:string) => {
+    const tutor = await prisma.tutorProfile.findUnique({
+        where:{
+            userId:tutorUserId,
+        }
+    });
+
+    if(!tutor?.id){
+        throw new Error("Tutor Not Found");
+    }
+
+    const tutorId = tutor?.id;
+
+    const record = await prisma.availability.findUnique({
+      where: { id },
+      select: { id: true, tutorId: true }
+    });
+
+    if (!record) {
+      throw new Error('data not found');
+    }
+
+    if (record.tutorId !== tutorId) {
+      throw new Error('Unauthorized: Tutor ID does not match');
+    }
+
+    const result = await prisma.availability.delete({
+      where: { id }
+    });
+
+    return result;
+
+}
+
 
 export const availabilityService = {
     createAvailability,
+    getAvailability,
+    deleteAvailability,
 }

@@ -12,6 +12,17 @@ router.post(
     availabilityController.createAvailability
 )
 
+router.get(
+    "/",
+    auth(Role.TUTOR),
+    availabilityController.getAvailability
+)
+
+router.delete(
+    "/:id",
+    auth(Role.TUTOR),
+    availabilityController.deleteAvailability
+)
 
 
 
