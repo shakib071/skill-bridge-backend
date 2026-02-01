@@ -95,9 +95,21 @@ const deleteAvailability = async(id:string,tutorUserId:string) => {
 
 }
 
+const getAvailabilityByIdWithoutBooked = async(tutorId:string) => {
+    const result = await prisma.availability.findMany({
+        where:{
+            tutorId,
+            isBooked:false
+        }
+    });
+
+    return result;
+}
+
 
 export const availabilityService = {
     createAvailability,
     getAvailability,
     deleteAvailability,
+    getAvailabilityByIdWithoutBooked,
 }

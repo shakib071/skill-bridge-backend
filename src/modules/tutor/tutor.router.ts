@@ -18,6 +18,12 @@ router.get(
     tutorController.getTutorProfiles
 )
 
+router.get(
+    "/profile/:id",
+    auth(Role.TUTOR),
+    tutorController.getTutorProfileById
+)
+
 
 
 

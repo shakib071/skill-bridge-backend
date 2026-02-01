@@ -34,7 +34,7 @@ const getAvailability = async(req:Request,res:Response,next:NextFunction) => {
             });
         }
         const result = await availabilityService.getAvailability(userId);
-        res.status(201).json({
+        res.status(200).json({
             success:true,
             data:result,
             message: "Availability Slot Created Successfully"
@@ -57,7 +57,22 @@ const deleteAvailability = async(req:Request,res:Response,next:NextFunction)=> {
         }
         
         const result = await availabilityService.deleteAvailability(id as string,userId);
-        res.status(201).json({
+        res.status(200).json({
+            success:true,
+            data:result,
+            message: "Availability Slot Deleted Successfully"
+        })
+    }
+    catch(e){
+        next(e);
+    }
+}
+
+const getAvailabilityByIdWithoutBooked = async(req:Request,res:Response,next:NextFunction)=> {
+    try{
+        const {id} = req.params;
+        const result = await availabilityService.getAvailabilityByIdWithoutBooked(id as string)
+        res.status(200).json({
             success:true,
             data:result,
             message: "Availability Slot Deleted Successfully"
@@ -74,4 +89,5 @@ export const availabilityController = {
     createAvailability,
     getAvailability,
     deleteAvailability,
+    getAvailabilityByIdWithoutBooked,
 }

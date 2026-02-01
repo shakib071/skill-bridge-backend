@@ -24,6 +24,11 @@ router.delete(
     availabilityController.deleteAvailability
 )
 
+router.get(
+    "/without-booked/:id",
+    availabilityController.getAvailabilityByIdWithoutBooked
+)
+
 
 
 

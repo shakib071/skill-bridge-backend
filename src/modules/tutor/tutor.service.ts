@@ -88,7 +88,55 @@ const getTutorProfiles = async(query: Record<string,any>) => {
 }
 
 
+const getTutorProfileById = async(id:string,userId:string) => {
+    
+    if(id !== userId){
+        throw new Error("You are not authorized");
+        
+    }
+
+    const result = await prisma.tutorProfile.findUnique({
+        where: {
+            userId
+        },
+        include: {
+            user: {
+            select: {
+                name: true,
+                
+            },
+            },
+            category: {
+            select: {
+                name: true,
+            },
+            },
+            bookings: {
+            where: {
+                review: {
+                isNot: null,
+                },
+            },
+            include: {
+                review: {
+                select: {
+                    rating: true,
+                },
+                },
+            },
+            },
+        },
+    });
+
+    
+
+    return result;
+
+}
+
+
 export const tutorService = {
     createTutorProfile,
     getTutorProfiles,
+    getTutorProfileById,
 }
