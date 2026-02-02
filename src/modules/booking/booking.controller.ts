@@ -49,10 +49,28 @@ const getSession = async(req:Request,res:Response,next:NextFunction) => {
     }
 }
 
+const getAllBookings = async(req:Request,res:Response,next:NextFunction) => {
+    try{
+       
+
+        const result = await bookingService.getAllBookings();
+
+        res.status(201).json({
+            success:true,
+            data:result,
+            message: "Created a Slot Deleted Successfully"
+        })
+    }
+    catch(e){
+        next(e);
+    }
+}
+
 
 
 export const bookingController = {
     createBooking,
     getSession,
+    getAllBookings,
     
 }

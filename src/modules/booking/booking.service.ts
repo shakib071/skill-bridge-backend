@@ -91,8 +91,14 @@ const getSession = async(userId:string,role:string) => {
 }
 
 
+const getAllBookings = async() => {
+    const result = await prisma.bookings.findMany();
+    return result;
+}
+
 
 export const bookingService = {
     createBooking,
     getSession,
+    getAllBookings,
 }

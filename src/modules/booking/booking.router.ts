@@ -18,6 +18,12 @@ router.get(
     bookingController.getSession
 )
 
+router.get(
+    "/get-all-bookings",
+    auth(Role.ADMIN),
+    bookingController.getAllBookings
+)
+
 
 
 
