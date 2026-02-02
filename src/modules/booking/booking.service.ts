@@ -1,4 +1,4 @@
-import { record } from "better-auth/*";
+import { includes, record } from "better-auth/*";
 import { prisma } from "../../lib/prisma";
 import { Role } from "../../types/enum";
 
@@ -101,12 +101,60 @@ const getAllBookings = async() => {
 const updateBookingStatus = async(bookingId:string,payload: Record<string,any>) => {
     const {status}  = payload;
 
+   
+
     const result = await prisma.bookings.update({
       where: {id: bookingId},
       data: {
         status:status,
       }
     })
+
+     if(status=="COMPLETED"){
+
+     await prisma.tutorProfile.update({
+      where:{id:result.tutorId},
+      data: {
+        total_session_completed:{
+          increment:1,
+        }
+      }
+     })
+      
+    }
+    return result;
+}
+
+const getAllBookingWithoutReviewForSpecificStudent=async(studentId:string) => {
+  const bookings = await prisma.bookings.findMany({
+    where: {
+      studentId,
+      status: "COMPLETED",        
+      
+    },
+    select: {
+      id: true,
+      tutorId: true,
+      start_time: true,
+      end_time: true,
+      total_price: true,
+      duration: true,
+      review:true,
+     
+      tutor: {
+        select: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return bookings;
 }
 
 
@@ -115,4 +163,5 @@ export const bookingService = {
     getSession,
     getAllBookings,
     updateBookingStatus,
+    getAllBookingWithoutReviewForSpecificStudent,
 }

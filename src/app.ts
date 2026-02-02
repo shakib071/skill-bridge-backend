@@ -9,6 +9,7 @@ import { tutorRouter } from "./modules/tutor/tutor.router";
 import { availabilityRouter } from "./modules/availability/availability.router";
 import { bookingRouter } from "./modules/booking/booking.router";
 import { userRouter } from "./modules/user/user.router";
+import { reviewRouter } from "./modules/review/review.router";
 
 const app: Application = express();
 
@@ -26,6 +27,7 @@ app.use("/api/tutor",tutorRouter);
 app.use("/api/availability",availabilityRouter);
 app.use("/api/booking",bookingRouter);
 app.use("/api/user",userRouter);
+app.use("/api/review",reviewRouter);
 
 app.get("/", (req, res) => {
     res.send("Hello, World from SkillBridge");

@@ -25,6 +25,12 @@ router.get(
     bookingController.getAllBookings
 )
 
+router.get(
+    "/get-completed-bookings",
+    auth(Role.STUDENT),
+    bookingController.getAllBookingWithoutReviewForSpecificStudent
+)
+
 router.patch(
     "/update-booking-status/:id",
     auth(Role.STUDENT,Role.TUTOR),

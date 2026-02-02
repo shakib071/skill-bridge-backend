@@ -17,7 +17,7 @@ const createBooking = async(req:Request,res:Response,next:NextFunction) => {
         res.status(201).json({
             success:true,
             data:result,
-            message: "Created a Slot Deleted Successfully"
+            message: "Created a Slot  Successfully"
         })
     }
     catch(e){
@@ -86,7 +86,23 @@ const updateBookingStatus = async(req:Request,res:Response,next:NextFunction) =>
 }
 
 
+const getAllBookingWithoutReviewForSpecificStudent = async(req:Request,res:Response,next:NextFunction) => {
+    try{
+       
+        const userId = req.user?.id;
 
+        const result = await bookingService.getAllBookingWithoutReviewForSpecificStudent(userId as string);
+
+        res.status(201).json({
+            success:true,
+            data:result,
+            message: "successfully fetched  booking without reviews"
+        })
+    }
+    catch(e){
+        next(e);
+    }
+}
 
 
 
@@ -95,6 +111,7 @@ export const bookingController = {
     getSession,
     getAllBookings,
     updateBookingStatus,
+    getAllBookingWithoutReviewForSpecificStudent,
    
     
 }
