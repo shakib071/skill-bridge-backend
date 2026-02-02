@@ -24,6 +24,18 @@ router.get(
     tutorController.getTutorProfileById
 )
 
+router.get(
+    "/tutor-self-profile",
+    auth(Role.TUTOR),
+    tutorController.getTutorSelfProfile
+)
+
+router.put(
+    "/update-profile/:id",
+    auth(Role.TUTOR),
+    tutorController.updateTutorProfile
+)
+
 
 
 

@@ -66,8 +66,10 @@ const formatTutor = (tutor: any) => {
     bio: tutor.bio,
     subjects: tutor.subjects,
     languages: tutor.languages,
+    education: tutor.education,
     image: tutor.user.image,
     category: tutor.category.name,
+    categoryId:tutor.category.id,
     hourlyRate: tutor.hourly_rate,
     experienceYears: tutor.experienceYears,
     averageRating: Number(averageRating.toFixed(1)),
@@ -120,9 +122,63 @@ const getTutorProfileById = async(req:Request,res:Response,next: NextFunction) =
 
 
 
+const getTutorSelfProfile = async(req:Request,res:Response,next: NextFunction) => {
+    try{
+        
+        const userId = req.user?.id;
+        if(!userId){
+            return res.status(401).json({
+                success:false,
+                message: "Unauthorized",
+            })
+        }
+        const result = await tutorService.getTutorSelfProfile(userId);
+        res.status(200).json({
+            success:true,
+            data:formatTutor(result),
+            message: "Successfully fetched tutor profiles"
+        })
+    }
+    catch(e){
+        next(e);
+    }
+}
+
+
+const updateTutorProfile = async(req:Request,res:Response,next: NextFunction) => {
+    try{
+        
+        const {id} = req.params;
+        if(!id){
+            return res.status(401).json({
+                success:false,
+                message: "Unauthorized",
+            })
+        }
+        const result = await tutorService.updateTutorProfile(id as string,req.body);
+        res.status(200).json({
+            success:true,
+            data:result,
+            message: "Successfully Updated tutor profiles"
+        })
+    }
+    catch(e){
+        next(e);
+    }
+}
+
+
+
+
+
+
+
+
 
 export const tutorController = {
     createTutorProfile,
     getTutorProfiles,
     getTutorProfileById,
+    getTutorSelfProfile,
+    updateTutorProfile,
 }
