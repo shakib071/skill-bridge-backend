@@ -18,10 +18,17 @@ router.get(
     bookingController.getSession
 )
 
+
 router.get(
     "/get-all-bookings",
     auth(Role.ADMIN),
     bookingController.getAllBookings
+)
+
+router.patch(
+    "/update-booking-status/:id",
+    auth(Role.STUDENT,Role.TUTOR),
+    bookingController.updateBookingStatus
 )
 
 

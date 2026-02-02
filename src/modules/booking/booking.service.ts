@@ -77,6 +77,7 @@ const getSession = async(userId:string,role:string) => {
       end_time: booking.end_time.toISOString(),
       duration: booking.duration,
       total_price: Number(booking.total_price),
+      status : booking.status,
       tutor: {
         user: { name: booking.tutor.user.name },
         category: booking.tutor.category?.name,
@@ -97,8 +98,21 @@ const getAllBookings = async() => {
 }
 
 
+const updateBookingStatus = async(bookingId:string,payload: Record<string,any>) => {
+    const {status}  = payload;
+
+    const result = await prisma.bookings.update({
+      where: {id: bookingId},
+      data: {
+        status:status,
+      }
+    })
+}
+
+
 export const bookingService = {
     createBooking,
     getSession,
     getAllBookings,
+    updateBookingStatus,
 }
