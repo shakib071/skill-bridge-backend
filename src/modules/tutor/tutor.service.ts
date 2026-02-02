@@ -214,6 +214,14 @@ const updateTutorProfile = async(tutorId:string , payload:Record<string,any>) =>
 
 }
 
+const updateIsFeature = async(tutorId:string,payload: Record<string,any>) => {
+    const {isFeatured} = payload;
+    const result = await prisma.tutorProfile.update({
+    where: { id: tutorId },
+    data: { isFeatured },
+  });
+}
+
 
 export const tutorService = {
     createTutorProfile,
@@ -221,6 +229,7 @@ export const tutorService = {
     getTutorProfileById,
     getTutorSelfProfile,
     updateTutorProfile,
+    updateIsFeature,
 }
 
 

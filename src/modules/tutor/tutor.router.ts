@@ -36,6 +36,12 @@ router.put(
     tutorController.updateTutorProfile
 )
 
+router.patch(
+    "/update-isfeatured/:id",
+    auth(Role.ADMIN),
+    tutorController.updateIsFeature
+)
+
 
 
 

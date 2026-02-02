@@ -19,6 +19,14 @@ const getAllUsers = async() => {
             role:{
                 not:"ADMIN",
             }
+        },
+        include:{
+            tutorProfile:{
+                select:{
+                    id:true,
+                    isFeatured:true,
+                }
+            }
         }
     });
     return result;
@@ -37,6 +45,8 @@ const updateUserStatus = async(id:string,payload: Record<string,any>) => {
     })
     return result;
 }
+
+
 
 
 export const userService = {
