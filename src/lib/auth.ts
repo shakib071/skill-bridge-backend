@@ -21,7 +21,8 @@ export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql", // or "mysql", "postgresql", ...etc
     }),
-    trustedOrigins:[process.env.APP_URL || "http://localhost:3000"],
+    baseURL: process.env.BETTER_AUTH_URL as string,
+    trustedOrigins:[process.env.APP_URL as string , "http://localhost:3000"],
     user: {
         additionalFields: {
             role:{
@@ -176,6 +177,35 @@ export const auth = betterAuth({
             accessType: "offline",
             clientId: process.env.GOOGLE_CLIENT_ID as string, 
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
+            
+        
         }, 
     },
+    session:{
+        cookieCache: {
+            enabled: true,
+            maxAge: 5 * 60, 
+
+        },
+    },
+    advanced:{
+        
+        cookiePrefix: "better-auth",
+        useSecureCookies: process.env.NODE_ENV === "production",
+        crossSubDomainCookies: {
+            enabled: false,
+
+        },
+
+        disableCSRFCheck: true, // Allow requests without Origin header (Postman, mobile apps, etc.)
+        
+        // Set cookie attributes based on environment
+        defaultCookieAttributes: {
+            sameSite: "none",
+            secure: true,
+            httpOnly: true,
+            path:"/",
+            // domain:".vercel.app"
+        }
+    }
 });
