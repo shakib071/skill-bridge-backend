@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { availabilityService } from "./availability.service";
-import { success } from "better-auth/*";
+
 
 const createAvailability = async(req:Request,res:Response,next:NextFunction) => {
     try{

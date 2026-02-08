@@ -10,12 +10,14 @@ import { availabilityRouter } from "./modules/availability/availability.router";
 import { bookingRouter } from "./modules/booking/booking.router";
 import { userRouter } from "./modules/user/user.router";
 import { reviewRouter } from "./modules/review/review.router";
+import { AdminRouter } from "./modules/admin/admin.router";
 
 const app: Application = express();
 
 const allowedOrigins = [
 
-  process.env.APP_URL || "http://localhost:3000",
+  process.env.APP_URL ,
+ "http://localhost:3000",
 
   process.env.PROD_APP_URL,
 
@@ -76,6 +78,7 @@ app.use("/api/availability",availabilityRouter);
 app.use("/api/booking",bookingRouter);
 app.use("/api/user",userRouter);
 app.use("/api/review",reviewRouter);
+app.use("/api/admin",AdminRouter);
 
 app.get("/", (req, res) => {
     res.send("Hello, World from SkillBridge");
