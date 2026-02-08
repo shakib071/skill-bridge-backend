@@ -46,11 +46,33 @@ const updateUserStatus = async(id:string,payload: Record<string,any>) => {
     return result;
 }
 
+const getOverview =async(studentId:string) => {
+    
 
+    const [upcomingSessions, completedSessions, tutor] = await Promise.all([
+      
+      prisma.bookings.count({
+        where: { studentId, status: "CONFIRMED" },
+      }),
+      
+      prisma.bookings.count({
+        where: { studentId, status: "COMPLETED" },
+      }),
+      
+      prisma.bookings.findMany({
+        where: { studentId, status: "COMPLETED" },
+        distinct: ["tutorId"],
+        select: { tutorId: true },
+      }),
+    ]);
+    const tutors = tutor?.length || 0;
+    return {upcomingSessions,completedSessions,tutors};
+}
 
 
 export const userService = {
     updateUserProfile,
     getAllUsers,
     updateUserStatus,
+    getOverview,
 }

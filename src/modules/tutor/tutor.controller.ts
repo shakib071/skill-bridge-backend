@@ -183,9 +183,27 @@ const updateIsFeature = async(req:Request,res:Response,next: NextFunction) => {
     }
 }
 
-
-
-
+const getOverview = async(req:Request,res:Response,next: NextFunction) => {
+    try{
+        
+        const { id }:any = req.user;
+        if(!id){
+            return res.status(401).json({
+                success:false,
+                message: "Unauthorized",
+            })
+        }
+        const result = await tutorService.getOverview(id as string);
+        res.status(200).json({
+            success:true,
+            data:result,
+            message: "Successfully  fetched overview"
+        })
+    }
+    catch(e){
+        next(e);
+    }
+}
 
 
 
@@ -201,4 +219,5 @@ export const tutorController = {
     getTutorSelfProfile,
     updateTutorProfile,
     updateIsFeature,
+    getOverview,
 }

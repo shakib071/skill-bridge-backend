@@ -222,6 +222,36 @@ const updateIsFeature = async(tutorId:string,payload: Record<string,any>) => {
   });
 }
 
+const getOverview = async(tutorId:string) => {
+   
+    const [upcomingSessions, completedSessions, student] = await Promise.all([
+      prisma.bookings.count({
+        where: {
+          tutorId,
+          status: "CONFIRMED",
+        },
+      }),
+      prisma.bookings.count({
+        where: {
+          tutorId,
+          status: "COMPLETED",
+        },
+      }),
+      prisma.bookings.findMany({
+        where: {
+          tutorId,
+          status: "COMPLETED",
+        },
+        distinct: ["studentId"],
+        select: { studentId: true },
+      }),
+    ])
+    const students = student?.length || 0;
+
+    return {upcomingSessions,completedSessions,students };
+}
+
+
 
 export const tutorService = {
     createTutorProfile,
@@ -230,52 +260,8 @@ export const tutorService = {
     getTutorSelfProfile,
     updateTutorProfile,
     updateIsFeature,
+    getOverview,
 }
 
 
 
-// export async function PUT(req: Request, { params }: { params: { id: string } }) {
-//   try {
-//     const tutorId = params.id;
-//     const body = await req.json();
-
-//     const data = updateTutorSchema.parse(body);
-
-//     // 1️⃣ Get categoryId from category name
-//     const category = await prisma.category.findUnique({
-//       where: { name: data.category },
-//       select: { id: true },
-//     });
-
-//     if (!category) {
-//       return new Response("Invalid category", { status: 400 });
-//     }
-
-//     // 2️⃣ Update TutorProfile + User in one query
-//     const updatedTutor = await prisma.tutorProfile.update({
-//       where: { id: tutorId },
-//       data: {
-//         bio: data.bio,
-//         hourly_rate: data.hourly_rate,
-//         experienceYears: data.experienceYears,
-//         subjects: data.subjects,
-//         languages: data.languages,
-//         categoryId: category.id,
-//         user: {
-//           update: {
-//             name: data.name,
-//           },
-//         },
-//       },
-//       include: {
-//         user: true,
-//         category: true,
-//       },
-//     });
-
-//     return Response.json(updatedTutor, { status: 200 });
-
-//   } catch (err: any) {
-//     return new Response(err.message || "Update failed", { status: 400 });
-//   }
-// }

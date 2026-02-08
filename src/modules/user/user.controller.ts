@@ -73,9 +73,34 @@ const updateUserStatus = async(req:Request,res:Response,next: NextFunction) => {
 }
 
 
+const getOverView = async(req:Request,res:Response,next: NextFunction) => {
+    try{
+        
+        const userId = req?.user?.id;
+        const {id} = req.params;
+        if(!userId){
+            return res.status(401).json({
+                success:false,
+                message: "Unauthorized",
+            })
+        }
+        const result = await userService.getOverview(id as string);
+        res.status(200).json({
+            success:true,
+            data: result,
+            message: "Successfully fetched Overview data "
+        })
+    }
+    catch(e){
+        next(e);
+    }
+}
+
+
 
 export const userController = {
     updateUserProfile,
     getAllUsers,
     updateUserStatus,
+    getOverView,
 }

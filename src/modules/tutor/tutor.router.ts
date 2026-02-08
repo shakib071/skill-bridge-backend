@@ -42,6 +42,12 @@ router.patch(
     tutorController.updateIsFeature
 )
 
+router.get(
+    "/overview",
+    auth(Role.TUTOR),
+    tutorController.getOverview
+)
+
 
 
 

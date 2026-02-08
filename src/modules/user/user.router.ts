@@ -26,5 +26,11 @@ router.patch(
     userController.updateUserStatus
 )
 
+router.get(
+    "/overview",
+    auth(Role.STUDENT),
+    userController.getOverView
+)
+
 
 export const userRouter = router;
