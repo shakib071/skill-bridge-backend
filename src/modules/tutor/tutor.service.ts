@@ -220,6 +220,7 @@ const updateIsFeature = async(tutorId:string,payload: Record<string,any>) => {
     where: { id: tutorId },
     data: { isFeatured },
   });
+  return result;
 }
 
 const getOverview = async(tutorId:string) => {

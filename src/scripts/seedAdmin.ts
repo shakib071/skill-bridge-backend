@@ -25,7 +25,7 @@ async function seedAdmin() {
             throw new Error("User already exists!!");
         }
 
-        const signUpAdmin = await fetch("http://localhost:5000/api/auth/sign-up/email", {
+        const signUpAdmin = await fetch("https://skillbridges-ten.vercel.app/api/auth/sign-up/email", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -191,7 +191,7 @@ export const auth = betterAuth({
     advanced:{
         
         cookiePrefix: "better-auth",
-        useSecureCookies: process.env.NODE_ENV === "production",
+        useSecureCookies: true,
         crossSubDomainCookies: {
             enabled: false,
 
@@ -204,8 +204,7 @@ export const auth = betterAuth({
             sameSite: "none",
             secure: true,
             httpOnly: true,
-            path:"/",
-            // domain:".vercel.app"
+          
         }
     }
 });
