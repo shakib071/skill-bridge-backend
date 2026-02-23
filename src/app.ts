@@ -84,6 +84,8 @@ app.get("/", (req, res) => {
     res.send("Hello, World from SkillBridge");
 });
 
+
+
 app.use(notFound);
 app.use(errorHandler);
 

@@ -186,7 +186,8 @@ const updateIsFeature = async(req:Request,res:Response,next: NextFunction) => {
 const getOverview = async(req:Request,res:Response,next: NextFunction) => {
     try{
         
-        const { id }:any = req.user;
+        const { id }:any = req.params;
+        // const userId = req.params
         if(!id){
             return res.status(401).json({
                 success:false,

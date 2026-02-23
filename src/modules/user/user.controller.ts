@@ -76,9 +76,10 @@ const updateUserStatus = async(req:Request,res:Response,next: NextFunction) => {
 const getOverView = async(req:Request,res:Response,next: NextFunction) => {
     try{
         
-        const userId = req?.user?.id;
+        // const userId = req?.user?.id;
+        // console.log(userId);
         const {id} = req.params;
-        if(!userId){
+        if(!id){
             return res.status(401).json({
                 success:false,
                 message: "Unauthorized",

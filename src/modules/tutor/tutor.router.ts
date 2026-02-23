@@ -43,8 +43,8 @@ router.patch(
 )
 
 router.get(
-    "/overview",
-    auth(Role.TUTOR),
+    "/overview/:id",
+    // auth(Role.TUTOR),
     tutorController.getOverview
 )
 

@@ -27,8 +27,8 @@ router.patch(
 )
 
 router.get(
-    "/overview",
-    auth(Role.STUDENT),
+    "/overview/:id",
+    // auth(Role.STUDENT),
     userController.getOverView
 )
 

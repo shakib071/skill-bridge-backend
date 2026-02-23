@@ -47,20 +47,23 @@ const updateUserStatus = async(id:string,payload: Record<string,any>) => {
 }
 
 const getOverview =async(studentId:string) => {
+    if (!studentId) {
+        throw new Error("Student ID missing");
+    }
     
 
     const [upcomingSessions, completedSessions, tutor] = await Promise.all([
       
       prisma.bookings.count({
-        where: { studentId, status: "CONFIRMED" },
+        where: { studentId:studentId, status: "CONFIRMED" },
       }),
       
       prisma.bookings.count({
-        where: { studentId, status: "COMPLETED" },
+        where: { studentId:studentId, status: "COMPLETED" },
       }),
       
       prisma.bookings.findMany({
-        where: { studentId, status: "COMPLETED" },
+        where: { studentId:studentId, status: "COMPLETED" },
         distinct: ["tutorId"],
         select: { tutorId: true },
       }),

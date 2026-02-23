@@ -54,7 +54,12 @@ const getTutorProfiles = async(query: Record<string,any>) => {
 
   
     const result = await prisma.tutorProfile.findMany({
-        where:filters,
+        where:{
+            ...filters,
+            user:{
+                status:"ACTIVE",
+            }
+        },
         include: {
             user: {
             select: {
@@ -223,7 +228,16 @@ const updateIsFeature = async(tutorId:string,payload: Record<string,any>) => {
   return result;
 }
 
-const getOverview = async(tutorId:string) => {
+const getOverview = async(Id:string) => {
+
+    const tutorProfile = await prisma.tutorProfile.findUnique({
+        where: { userId: Id },
+        select: { id: true }
+    });
+
+    if (!tutorProfile) throw new Error("Tutor profile not found");
+
+    const tutorId = tutorProfile.id;
    
     const [upcomingSessions, completedSessions, student] = await Promise.all([
       prisma.bookings.count({
