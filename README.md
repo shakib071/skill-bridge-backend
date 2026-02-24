@@ -20,6 +20,16 @@ Built with **Node.js**, **Express.js**, **TypeScript**, **Prisma**, and **Postgr
 
 ---
 
+
+## 🔗 Repositories
+
+| | URL |
+|--|-----|
+| **Frontend** | [github.com/shakib071/skill-bridge-frontend](https://github.com/shakib071/skill-bridge-frontend) |
+| **Backend** | [github.com/shakib071/skill-bridge-backend](https://github.com/shakib071/skill-bridge-backend) |
+
+---
+
 ## 🚀 Features
 
 ### 🔐 Authentication & Authorization
