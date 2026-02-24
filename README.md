@@ -267,7 +267,7 @@ NODE_ENV=development (or production)
 ```bash
 # Clone the repo
 git clone https://github.com/shakib071/skill-bridge-backend.git
-cd skillbridge-api
+cd skill-bridge-backend
 
 # Install dependencies
 npm install
